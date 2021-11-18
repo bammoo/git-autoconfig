@@ -49,6 +49,9 @@ export async function activate(context: vscode.ExtensionContext) {
           console.log(`${MESSAGE_PREFIX}Config doesn exists.`);
           await setGitConfig();
         } else {
+          myStatusBarItem.text = `${gitConfig["user.name"]}`;
+          myStatusBarItem.show();
+
           console.log(
             `${MESSAGE_PREFIX}Config already exists. : ${JSON.stringify(
               gitConfig,
@@ -182,6 +185,8 @@ export async function activate(context: vscode.ExtensionContext) {
       vscode.window.showInformationMessage(
         "Local git config successfully set."
       );
+      myStatusBarItem.text = `${newConfig["user.name"]}`;
+      myStatusBarItem.show();
       return true;
     };
 
@@ -266,13 +271,24 @@ export async function activate(context: vscode.ExtensionContext) {
     }
   );
 
+  // create a new status bar item that we can now manage
+  myStatusBarItem = vscode.window.createStatusBarItem(
+    vscode.StatusBarAlignment.Left,
+    100
+  );
+  context.subscriptions.push(myStatusBarItem);
+
   context.subscriptions.push(
     getConfigCommand,
     setConfigCommand,
     ignoreRootCommand,
     unignoreRootCommand
   );
+  context.subscriptions.push(
+    vscode.window.onDidChangeActiveTextEditor(checkForLocalConfig)
+  );
 }
+let myStatusBarItem: vscode.StatusBarItem;
 
 // this method is called when your extension is deactivated
 export function deactivate() {
