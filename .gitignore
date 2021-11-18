@@ -63,3 +63,5 @@ out
 
 # vscode test
 .vscode-test
+
+*.vsix
