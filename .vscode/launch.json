@@ -8,7 +8,7 @@
       "request": "launch",
       "runtimeExecutable": "${execPath}",
       "args": [
-        "/Users/orange/code/gh",
+        "/Users/orange/code/gh/nice-cr/gitlab-types",
         "--extensionDevelopmentPath=${workspaceRoot}"
       ],
       "stopOnEntry": false,

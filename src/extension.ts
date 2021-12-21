@@ -23,6 +23,10 @@ const path = require("path");
 
 const MESSAGE_PREFIX = "git-autoconfig: ";
 
+const getRemoteOriginUrl = (remoteOriginUrl: string) => {
+  return remoteOriginUrl.split("@")[1].split(":")[0];
+};
+
 let timeoutId: NodeJS.Timer;
 
 // this method is called when your extension is activated
@@ -49,7 +53,12 @@ export async function activate(context: vscode.ExtensionContext) {
           console.log(`${MESSAGE_PREFIX}Config doesn exists.`);
           await setGitConfig();
         } else {
-          myStatusBarItem.text = `${gitConfig["user.name"]}`;
+          const remoteOriginUrl = (
+            await repository.configGet("local", "remote.origin.url", {})
+          ).trim();
+          myStatusBarItem.text = `${
+            gitConfig["user.name"]
+          } ${getRemoteOriginUrl(remoteOriginUrl)}`;
           myStatusBarItem.show();
 
           console.log(
@@ -185,7 +194,12 @@ export async function activate(context: vscode.ExtensionContext) {
       vscode.window.showInformationMessage(
         "Local git config successfully set."
       );
-      myStatusBarItem.text = `${newConfig["user.name"]}`;
+      const remoteOriginUrl = (
+        await repository.configGet("local", "remote.origin.url", {})
+      ).trim();
+      myStatusBarItem.text = `${newConfig["user.name"]} ${getRemoteOriginUrl(
+        remoteOriginUrl
+      )}`;
       myStatusBarItem.show();
       return true;
     };
