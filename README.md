@@ -14,17 +14,3 @@ This extension contributes the following settings:
 
 - `git-autoconfig.queryInterval`: Interval for querying of git config in ms
 - `git-autoconfig.configList`: List of local git configs in format [{'user.email': 'Marvolo@Riddle.Tom', 'user.name': 'Tom Marvolo Riddle'}] . Extension itself writes into this setting too.
-
-## Release Notes
-
-### 0.0.3 2021-12-21
-
-- Feature: add status bar to show user.name and domain of remote.origin.url
-
-### 0.0.2 2020-09-13
-
-- Feature: Add option to not auto add config [3](https://github.com/ShyykoSerhiy/git-autoconfig/issues/3)
-
-### 0.0.1 2017-04-04
-
-Initial release of git-autoconfig
