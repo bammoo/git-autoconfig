@@ -8,7 +8,7 @@
       "request": "launch",
       "runtimeExecutable": "${execPath}",
       "args": [
-        "/Users/orange/code/gh/nice-cr/gitlab-types",
+        "/Users/orange/code/gitee/chrome-extension/Workspace-Bookmark",
         "--extensionDevelopmentPath=${workspaceRoot}"
       ],
       "stopOnEntry": false,

@@ -1,6 +1,6 @@
 "use strict";
 import * as vscode from "vscode";
-import { Git, findGit, Repository, GitError } from "./git/git";
+import { Git, findGit, Repository, GitError } from "./git-new/git-shell";
 import {
   getConfigList,
   updateConfigList,
@@ -53,9 +53,12 @@ export async function activate(context: vscode.ExtensionContext) {
           console.log(`${MESSAGE_PREFIX}Config doesn exists.`);
           await setGitConfig();
         } else {
+          const remote = await repository.getCurrentRemote();
+          console.log(`xjf: 111`, `remote.${remote}.url`);
           const remoteOriginUrl = (
-            await repository.configGet("local", "remote.origin.url", {})
+            await repository.configGet("local", `remote.${remote}.url`, {})
           ).trim();
+          console.log(`xjf: remoteOriginUrl`, remoteOriginUrl);
           myStatusBarItem.text = `${
             gitConfig["user.name"]
           } ${getRemoteOriginUrl(remoteOriginUrl)}`;
@@ -185,8 +188,18 @@ export async function activate(context: vscode.ExtensionContext) {
           await updateConfigList(configList);
         }
 
-        await repository.config("local", "user.email", newConfig["user.email"]);
-        await repository.config("local", "user.name", newConfig["user.name"]);
+        await repository.config(
+          "local",
+          "user.email",
+          newConfig["user.email"],
+          {}
+        );
+        await repository.config(
+          "local",
+          "user.name",
+          newConfig["user.name"],
+          {}
+        );
       } catch (e) {
         vscode.window.showErrorMessage("Failed to set local git config.", e);
         return false;
@@ -194,8 +207,10 @@ export async function activate(context: vscode.ExtensionContext) {
       vscode.window.showInformationMessage(
         "Local git config successfully set."
       );
+      const remote = await repository.getCurrentRemote();
+      console.log(`xjf: 111`, `remote.${remote}.url`);
       const remoteOriginUrl = (
-        await repository.configGet("local", "remote.origin.url", {})
+        await repository.configGet("local", `remote.${remote}.url`, {})
       ).trim();
       myStatusBarItem.text = `${newConfig["user.name"]} ${getRemoteOriginUrl(
         remoteOriginUrl

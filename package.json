@@ -92,7 +92,11 @@
         "@types/mocha": "^8.0.3",
         "@types/node": "^6.0.40",
         "mocha": "^8.1.3",
+        "ts-node": "^10.4.0",
         "typescript": "^3.9.10",
         "vscode": "^1.1.37"
+    },
+    "dependencies": {
+        "iconv-lite": "^0.6.3"
     }
 }
