@@ -1,6 +1,6 @@
 "use strict";
 import * as vscode from "vscode";
-import { Git, findGit, Repository, GitError } from "./git-new/git-shell";
+import { Git, findGit, Repository, GitError } from "@bammoo/git";
 import {
   getConfigList,
   updateConfigList,
