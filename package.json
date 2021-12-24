@@ -97,6 +97,7 @@
         "vscode": "^1.1.37"
     },
     "dependencies": {
+        "@bammoo/git": "^1.0.0",
         "iconv-lite": "^0.6.3"
     }
 }
